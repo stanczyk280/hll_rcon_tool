@@ -58,6 +58,15 @@ def count_vote(rcon: Rcon, struct_log: StructuredLogLineType):
         )
 
 
+@on_chat
+def send_info(rcon: Rcon, struct_log: StructuredLogLineType):
+    message = struct_log.get("sub_content", "").strip()
+    if message.startswith("!info"):
+        rcon.do_message_player(
+            steam_id_64=struct_log["steam_id_64_1"], message="Test message"
+        )
+
+
 def initialise_vote_map(rcon: Rcon, struct_log):
     logger.info("New match started initializing vote map. %s", struct_log)
     try:
